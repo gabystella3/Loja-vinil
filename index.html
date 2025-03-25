@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinil Retrô</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 style="color: beige;">Vinil Retrô 🎞️</h1>
+    <nav>
+        <a href="sobre.html" class="link-sobre">Sobre</a>
+    </nav>
+  </header>
+    
+    <main>
+        <section>
+            <input id="campo-pesquisa" type="text" placeholder="Digite o nome do álbum ou artista">
+            <button onclick="pesquisar()">Pesquisar</button>
+        </section>
+
+        <section class="resultados-pesquisa" id="resultados-pesquisa">
+            <div id="discos">
+                <!-- Os discos serão inseridos dinamicamente aqui -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Vinil Retrô - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Dados dos discos
+        let dados = [
+            { nome: "Michael Jackson - Thriller", descricao: "Lançado em 30 de novembro de 1982, 'Thriller' é o álbum mais vendido da história, com vendas estimadas entre 51 e 65 milhões de cópias. O disco inclui sucessos como 'Billie Jean', 'Beat It' e 'Thriller', e foi inovador ao utilizar videoclipes como ferramentas de promoção musical.", link: "https://www.amazon.com.br/Michael-Jackson-Thriller-Vinyl/dp/B0CN1QGQCF", imagem: "disco1.png" },
+            { nome: "Chico Buarque - Construção", descricao: "Lançado em 1971, 'Construção' é um dos álbuns mais aclamados de Chico Buarque, destacando-se pela faixa-título 'Construção', conhecida por sua letra inovadora e crítica social, além de outras canções marcantes como 'Deus Lhe Pague' e 'Cotidiano'.", link: "https://www.amazon.com.br/Constru%C3%A7%C3%A3o-S%C3%A9rie-Cl%C3%A1ssicos-Vinil-Disco/dp/B07DVM698H", imagem: "disco2.png" },
+            { nome: "Cyndi Lauper - She's So Unusual", descricao: "Álbum de estreia de Cyndi Lauper, lançado em 1983, que trouxe sucessos como 'Girls Just Want to Have Fun', 'Time After Time' e 'She Bop'. O disco foi aclamado por sua mistura de pop e new wave, consolidando Lauper como uma das principais artistas da década de 1980.", link: "https://www.amazon.com.br/Shes-So-Unusual-Disco-Vinil/dp/B07TKNFVQX", imagem: "disco3.png" },
+            { nome: "Raça Negra - Raça Negra (1991)", descricao: "O álbum homônimo de 1991 do grupo Raça Negra ajudou a popularizar o samba e o pagode no Brasil. Inclui hits como 'Cheia de Manias', 'Doce Paixão' e 'Cigana', que se tornaram clássicos do gênero.", link: "https://www.amazon.com.br/RA%C3%87A-NEGRA-1992-LP-BANDA/dp/B0853DXY21", imagem: "disco4.png" },
+            { nome: "The Beatles", descricao: "O álbum que mostra os Beatles caminhando na rua é Abbey Road, lançado em 1969. A capa icônica traz John Lennon, Paul McCartney, George Harrison e Ringo Starr atravessando a faixa de pedestres em frente ao estúdio Abbey Road, em Londres", link: "https://www.amazon.com.br/Abbey-Road-Anniversary-Disco-Vinil/dp/B07VNS48HD/ref=asc_df_B07VNS48HD/?tag=googleshopp06-20&linkCode=df0&hvadid=709884088531&hvpos=&hvnetw=g&hvrand=10828426711165534644&hvpone=&hvptwo=&hvqmt=&hvdev=m&hvdvcmdl=&hvlocint=&hvlocphy=9215588&hvtargid=pla-823510007664&psc=1&mcid=300f1f820d7b3fb3a6e5a55b9f5ec530&tag=googleshopp06-20&linkCode=df0&hvadid=709884088531&hvpos=&hvnetw=g&hvrand=10828426711165534644&hvpone=&hvptwo=&hvqmt=&hvdev=m&hvdvcmdl=&hvlocint=&hvlocphy=9215588&hvtargid=pla-823510007664&psc=1&language=pt_BR&gad_source=1", imagem: "disco5.png" },
+            { nome: "Legião Urbana - Dois", descricao: "Lançado em 1986, 'Dois' é o segundo álbum da banda Legião Urbana e é considerado um dos mais importantes do rock brasileiro. Inclui clássicos como 'Eduardo e Mônica', 'Tempo Perdido' e 'Quase Sem Querer'.", link: "https://www.searomdiscos.com.br/products/lp-vinil-legiao-urbana-1985-7d643fa5-bbfc-42fc-a17b-c2f111509c92", imagem: "disco6.png" },
+            { nome: "Bryan Adams - Reckless", descricao: "Lançado em 1984, 'Reckless' é um dos álbuns mais bem-sucedidos de Bryan Adams, incluindo sucessos como 'Heaven', 'Summer of '69' e 'Run to You'. O disco consolidou Adams como uma estrela do rock nos anos 1980.", link: "https://www.amazon.com.br/Reckless-Disco-Vinil-Bryan-Adams/dp/B00NG63A3O", imagem: "disco7.png" },
+            { nome: "Zé Ramalho - Zé Ramalho", descricao: "O álbum de estreia homônimo de Zé Ramalho, lançado em 1978, mescla rock com música nordestina e inclui a icônica faixa 'Avôhai', além de outras como 'Chão de Giz' e 'Vila do Sossego'.", link: "https://www.amazon.com.br/LP-RAMALHO-1978-NACIONAL-ORIGINAL/dp/B0DHLH15RG", imagem: "disco8.png" },
+            { nome: "Reginaldo Rossi - Cheio de Amor", descricao: "Lançado em 1981, 'Lançado em 1981, 'Cheio de Amor' é um dos álbuns de maior sucesso de Reginaldo Rossi, conhecido como o 'Rei do Brega'. Inclui a faixa 'Em Plena Lua de Mel', um de seus maiores sucessos.", link: "https://www.amazon.com.br/NACIONAL-CHEIO-AMOR-REGINALDO-ROSSI/dp/B09Z8NT4RL", imagem: "disco9.png" },
+            { nome: "Cazuza - Ideologia (LP Vermelho)", descricao: "Lançado em 1988, 'Ideologia' é um dos álbuns mais emblemáticos de Cazuza, apresentando sucessos como 'Ideologia', 'Brasil' e 'Faz Parte do Meu Show'. O disco reflete a inquietação e o talento poético do artista.", link: "https://www.umusicstore.com/vinil-cazuza-ideologia-lp-vermelho-4685/p?idsku=5727", imagem: "disco10.png" }
+        ];
+
+        // Função para renderizar os discos
+        function renderizarDiscos(discos) {
+            const discosSection = document.getElementById("discos");
+            discosSection.innerHTML = '';  // Limpa os resultados anteriores
+
+            if (discos.length === 0) {
+                discosSection.innerHTML = "<p>Nenhum disco encontrado.</p>";
+                return;
+            }
+
+            discos.forEach(disco => {
+                const div = document.createElement("div");
+                div.classList.add("disco-item");
+                div.innerHTML = `
+                    <h2>${disco.nome}</h2>
+                    <img src="${disco.imagem}" alt="Imagem do ${disco.nome}" style="width: 200px; height: 200px; margin-bottom: 10px;"/>
+                    <p>${disco.descricao}</p>
+                    <a href="${disco.link}" target="_blank">Comprar aqui</a>
+                `;
+                discosSection.appendChild(div);
+            });
+        }
+
+        // Função para pesquisar discos
+        function pesquisar() {
+            const termoPesquisa = document.getElementById("campo-pesquisa").value.toLowerCase();
+
+            const discosFiltrados = dados.filter(disco => {
+                return disco.nome.toLowerCase().includes(termoPesquisa) || disco.descricao.toLowerCase().includes(termoPesquisa);
+            });
+
+            renderizarDiscos(discosFiltrados);
+        }
+
+        // Chama a função para renderizar todos os discos ao carregar a página
+        renderizarDiscos(dados);
+    </script>
+</body>
+</html>
