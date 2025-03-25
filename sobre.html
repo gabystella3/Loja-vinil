@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre - Vinil Retrô</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 style="color: beige;">Vinil Retrô 🎞️</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2 class="nossos-direitos">Nosso Objetivo</h2>
+            <p>A Vinil Retrô é uma loja especializada em vinis clássicos e raros, trazendo para os amantes da música uma seleção única dos melhores álbuns de todos os tempos. Com um acervo cuidadosamente curado, oferecemos desde discos de artistas internacionais até grandes nomes da música brasileira.</p>
+            <p>Nosso compromisso é proporcionar a você, fã de vinil, uma experiência única ao adquirir um item que faz parte da história musical. Além disso, prezamos pela qualidade e autenticidade de cada disco que oferecemos. Cada vinil é inspecionado individualmente, garantindo que você receba um produto em excelentes condições.</p>
+            <p>Seja para completar sua coleção ou para conhecer novos álbuns, a Vinil Retrô é o lugar ideal para você!</p>
+
+            <!-- Botão de Voltar -->
+            <button class="botao-voltar" onclick="voltarPagina()">Voltar</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Vinil Retrô - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        function voltarPagina() {
+            if (window.history.length > 1) {
+                window.history.back(); // Se houver histórico, volta para a página anterior
+            } else {
+                window.location.href = "index.html"; // Se não houver histórico, vai para a página inicial
+            }
+        }
+    </script>
+</body>
+</html>
